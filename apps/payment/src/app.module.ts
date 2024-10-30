@@ -1,17 +1,16 @@
 import { Logger, Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    UsersModule,
-  ],
+  imports: [],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  private readonly logger = new Logger('AppModule');
+
+  onModuleInit() {
+    this.logger.log('---------> App Module has been initialized.');
+  }
+}
